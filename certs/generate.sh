@@ -1,0 +1,1 @@
+openssl req -x509 -newkey rsa:1024 -sha256 -keyout 1024.esp8266.key.pem -out 1024.esp8266.cert.pem -days 365 -nodes
