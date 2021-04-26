@@ -4,24 +4,10 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266WebServerSecure.h>
 
-const char *WIFI_SSID     = "ssid";
-const char *WIFI_PASSWORD = "password";
-const char *WIFI_DNAME    = "ipmi_esp8266";
-const int   HTTP_PORT     = 4080;
-const int   HTTPS_PORT    = 4443;
-const char *HTTP_URL      = "http://ipmi.mieciuu.live:4080/";
-const char *HTTPS_URL     = "https://ipmi.mieciuu.live:4443/";
+#include "env.h"
 
 ESP8266WebServer                http_server(HTTP_PORT);
 BearSSL::ESP8266WebServerSecure https_server(HTTPS_PORT);
-
-static const char https_cert[] PROGMEM =
-#include "cert.h"
-"";
-
-static const char https_key[] PROGMEM = 
-#include "key.h"
-"";
 
 bool connectToWifi()
 {
@@ -89,8 +75,8 @@ void setup()
     http_server.begin();
 
     https_server.getServer().setRSACert(
-        new BearSSL::X509List(https_cert),
-        new BearSSL::PrivateKey(https_key)
+        new BearSSL::X509List(HTTPS_CERT),
+        new BearSSL::PrivateKey(HTTPS_KEY)
     );
     https_server.on("/", showWebpage);
     https_server.begin();

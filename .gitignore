@@ -5,5 +5,4 @@
 .vscode/ipch
 
 *.pem
-src/certs/cert.h
-src/certs/key.h
+env.h
