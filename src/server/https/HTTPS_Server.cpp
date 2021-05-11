@@ -28,28 +28,30 @@ void HTTPS_Server::setupSSL()
     );
 }
 
+bool HTTPS_Server::authenticate()
+{
+    if (!server.authenticate(PANEL_USERNAME, PANEL_PASSWORD))
+    {
+        server.requestAuthentication();
+        return false;
+    }
+    return true;
+}
+
 // ROUTES
 void HTTPS_Server::home()
 {
-    if (!server.authenticate(PANEL_USERNAME, PANEL_PASSWORD)) return server.requestAuthentication();
+    if (!authenticate()) return;
     
     time_t now = time(NULL);
     auto timestamp = ctime(&now);
-
-    // auto processor = [timestamp] (const String &var) -> String
-    // {
-    //     if (var == "TIME") return timestamp;
-    //     return String();
-    // };
-
-    // server.send(LittleFS, "/public/index.html", String(), false, processor);
 
     server.send(200, "text/plain", timestamp);
 }
 
 void HTTPS_Server::files()
 {
-    if (!server.authenticate(PANEL_USERNAME, PANEL_PASSWORD)) return server.requestAuthentication();
+    if (!authenticate()) return;
     
     String output = "";
     auto files = fs.listDirectory("/");
@@ -64,8 +66,35 @@ void HTTPS_Server::files()
     server.send(200, "text/plain", output);
 }
 
+void HTTPS_Server::pwr_press()
+{
+    if (!authenticate()) return;
+    
+    pinMode(PWR_PIN, OUTPUT);
+    digitalWrite(PWR_PIN, LOW);
+    delay(1000);
+    digitalWrite(PWR_PIN, HIGH);
+
+    server.send(200, "text/plain", "done");
+}
+
+void HTTPS_Server::rst_press()
+{
+    if (!authenticate()) return;
+    
+    pinMode(RST_PIN, OUTPUT);
+    digitalWrite(RST_PIN, LOW);
+    delay(1000);
+    digitalWrite(RST_PIN, HIGH);
+    
+    server.send(200, "text/plain", "done");
+}
+
 void HTTPS_Server::setupRoutes()
 {
     server.on("/", route(home));
-    server.on("/files", route(files));
+    // server.on("/files", route(files));
+
+    server.on("/press/power", route(pwr_press));
+    server.on("/press/reset", route(rst_press));
 }
