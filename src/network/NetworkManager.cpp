@@ -13,6 +13,9 @@ void NetworkManager::begin(SystemManager &sys)
 
     setupOTA();
     setupNTP();
+
+    wifi_set_sleep_type(NONE_SLEEP_T);
+    // wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
 
 bool NetworkManager::connect()
