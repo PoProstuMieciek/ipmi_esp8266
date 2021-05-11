@@ -6,7 +6,6 @@ class HTTP_Server : public BaseServer<ESP8266WebServer>
 {
     protected:
         void secureRedirect();
-        void shortPress();
         void setupRoutes();
 
     public:
