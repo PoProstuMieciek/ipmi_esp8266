@@ -15,7 +15,7 @@ class Logger
 {
     public:
         String channel_name;
-        
+
         void begin(String channel_name = "[System]");
 
         size_t printf(const char *format, MessageLevel level, ...);

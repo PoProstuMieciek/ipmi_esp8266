@@ -25,9 +25,9 @@ String FilesystemManager::getFileContent(String path)
 std::vector<String> FilesystemManager::listDirectory(String dir_path)
 {
     if (dir_path == "/") dir_path = "";
-    
+
     std::vector<String> result;
-    
+
     Dir dir = LittleFS.openDir(dir_path);
     while (dir.next())
     {

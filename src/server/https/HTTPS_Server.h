@@ -4,7 +4,7 @@
 
 class HTTPS_Server : public BaseServer<ESP8266WebServerSecure>
 {
-    protected:        
+    protected:
         void setupSSL();
         bool authenticate();
 

@@ -1,7 +1,7 @@
 #include "HTTPS_Server.h"
 
 HTTPS_Server::HTTPS_Server(SystemManager &sys, FilesystemManager &fs) :
-BaseServer(sys, fs, HTTPS_PORT)
+    BaseServer(sys, fs, HTTPS_PORT)
 {
     setupRoutes();
     setupSSL();
@@ -38,11 +38,10 @@ bool HTTPS_Server::authenticate()
     return true;
 }
 
-// ROUTES
 void HTTPS_Server::home()
 {
     if (!authenticate()) return;
-    
+
     time_t now = time(NULL);
     auto timestamp = ctime(&now);
 
@@ -52,7 +51,7 @@ void HTTPS_Server::home()
 void HTTPS_Server::files()
 {
     if (!authenticate()) return;
-    
+
     String output = "";
     auto files = fs.listDirectory("/");
 
@@ -69,7 +68,7 @@ void HTTPS_Server::files()
 void HTTPS_Server::pwr_press()
 {
     if (!authenticate()) return;
-    
+
     pinMode(PWR_PIN, OUTPUT);
     digitalWrite(PWR_PIN, LOW);
     delay(1000);
@@ -81,12 +80,12 @@ void HTTPS_Server::pwr_press()
 void HTTPS_Server::rst_press()
 {
     if (!authenticate()) return;
-    
+
     pinMode(RST_PIN, OUTPUT);
     digitalWrite(RST_PIN, LOW);
     delay(1000);
     digitalWrite(RST_PIN, HIGH);
-    
+
     server.send(200, "text/plain", "done");
 }
 

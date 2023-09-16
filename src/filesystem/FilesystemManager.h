@@ -12,7 +12,7 @@ class FilesystemManager
     public:
         SystemManager sys;
         Logger logger;
-        
+
         void begin(SystemManager &sys);
 
         String getFileContent(String path);

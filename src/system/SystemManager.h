@@ -8,7 +8,7 @@ class SystemManager
 {
     public:
         Logger logger;
-        
+
         void begin();
 
         void requestRestart(int timeout_seconds = 10000);

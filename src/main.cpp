@@ -1,6 +1,3 @@
-// Copyright (C) 2021  Maciej Opaliński. All Rights Reserved.
-// Version 1.0.0
-
 #include <Arduino.h>
 
 #include "system/SystemManager.h"
