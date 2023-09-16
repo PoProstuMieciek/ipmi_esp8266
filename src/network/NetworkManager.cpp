@@ -15,17 +15,24 @@ void NetworkManager::begin(SystemManager &sys)
     setupNTP();
 
     wifi_set_sleep_type(NONE_SLEEP_T);
-    // wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
 
 bool NetworkManager::connect()
 {
     logger.printf("Connecting to %s ...\n", INFO, WIFI_SSID);
 
+    IPAddress local_ip;
+    IPAddress gateway;
+    IPAddress subnet;
+    local_ip.fromString(LOCAL_IP);
+    gateway.fromString(GATEWAY);
+    subnet.fromString(SUBNET);
+
+    WiFi.config(local_ip, gateway, subnet);
     WiFi.mode(WIFI_STA);
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
-    if(WiFi.waitForConnectResult(15000) == WL_CONNECTED)
+    if (WiFi.waitForConnectResult(15000) == WL_CONNECTED)
     {
         logger.printf("Connected\n", INFO);
         logger.printf("IP: %s\n", INFO, WiFi.localIP().toString().c_str());

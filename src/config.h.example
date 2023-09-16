@@ -1,0 +1,23 @@
+#pragma once
+
+#define PWR_PIN 5
+#define RST_PIN 4
+
+#define WIFI_SSID "My-Home-Network"
+#define WIFI_PASSWORD "password@123"
+#define WIFI_DNAME "ipmi_esp8266"
+
+#define LOCAL_IP "192.168.0.20"
+#define GATEWAY "192.168.0.1"
+#define SUBNET "255.255.255.0"
+
+#define HTTP_PORT 45960
+#define HTTPS_PORT 45961
+
+#define CERT_PATH "/certs/cert.pem"
+#define KEY_PATH "/certs/key.pem"
+
+#define PANEL_USERNAME "root"
+#define PANEL_PASSWORD "root"
+
+#define TIMEZONE 2
