@@ -11,9 +11,8 @@ HTTP_Server::HTTP_Server(SystemManager &sys, FilesystemManager &fs) :
 
 void HTTP_Server::secureRedirect()
 {
-    String host = server.hostHeader();
-    host.replace(":" + String(HTTP_PORT), "");
-    String redirect = "https://" + host + String(HTTPS_PORT);
+    String redirect = "https://" + server.hostHeader();
+    redirect.replace(":" + String(HTTP_PORT), ":" + String(HTTPS_PORT));
 
     server.sendHeader("Location", redirect);
     server.send(301, "text/plain", "");
